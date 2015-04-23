@@ -1,0 +1,37 @@
+<html>
+	<head>
+
+		<style>
+		#cancha{
+			border: 5px solid black;
+		}
+		</style>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+		<script>
+		$(document).ready(function(){
+
+			var x = 450;
+			var y = 300;
+			var contexto;
+			 
+			function draw() {
+			  canvas = $('#cancha')
+			  contexto = canvas[0].getContext("2d");
+			  contexto.beginPath();
+			  contexto.arc(x, y, 15, 0, Math.PI*2, true); 
+			  contexto.closePath();
+			  contexto.fill();
+
+			}
+			 
+			draw();
+		});
+
+		</script>
+	</head>
+	<body>
+	<canvas id="cancha" width="900" height="600"></canvas>
+
+	</body>
+</html>
