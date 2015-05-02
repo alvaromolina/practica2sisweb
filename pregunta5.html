@@ -1,0 +1,22 @@
+<html>
+	<head>
+
+		<script>
+			function calcular(){
+				sum = 0;
+				numeros = document.getElementById('entrada').value.split(",");
+				numeros.forEach(function(num){
+					sum += parseInt(num);
+				});
+				document.getElementById("salida").value = sum;
+			}
+		</script>
+	</head>
+	<body>
+		Entrada: <input type="text" name="entrada" id="entrada">
+		<br>
+		Salida: <input type="text" name="salida" id="salida">
+		<br>
+		<button onclick="calcular();">Calcular</button>
+	</body>
+</html>

@@ -1,0 +1,136 @@
+<html>
+	<head>
+
+		<style>
+		#cancha{
+			border: 5px solid black;
+		}
+		</style>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<script>
+		$(document).ready(function(){
+
+			var x = 450;
+			var y = 300;
+
+			var dx = 4;
+			var dy = 2;
+
+			WIDTH = 900;
+			HEIGHT = 600;
+
+			upDown1 = false;
+			upDown2 = false;
+			downDown1 = false;
+			downDown2 = false;
+
+			var intervalId = 0;
+
+			var contexto;
+
+			function init(){
+			  canvas = $('#cancha')
+			  contexto = canvas[0].getContext("2d");
+			  intervalId = setInterval(draw, 10);
+			}
+			
+			function circle(xpos, ypos){
+			  contexto.beginPath();
+			  contexto.arc(xpos, ypos, 15, 0, Math.PI*2, true); 
+			  contexto.closePath();
+			  contexto.fill();		
+			}
+
+			function rect(x,y,w,h) {
+			  contexto.beginPath();
+			  contexto.rect(x,y,w,h);
+			  contexto.closePath();
+			  contexto.fill();
+			}
+
+			function clear(){
+				contexto.clearRect(0, 0, 900, 600);
+			}
+
+			function init_paddles() {
+			  paddle1y = HEIGHT / 2 - 70;
+			  paddle1h = 140;
+			  paddle1w = 30;
+			  paddle2y = HEIGHT / 2 - 70;
+			  paddle2h = 140;
+			  paddle2w = 30;
+			}
+
+			function draw() {
+				clear();
+				circle(x,y);
+				//paddle 1
+				if (upDown1) paddle1y -= 5;
+				else if (downDown1) paddle1y += 5;
+				rect(0, paddle1y,  paddle1w, paddle1h);
+				//paddle 2
+				if (upDown2) paddle2y -= 5;
+				else if (downDown2) paddle2y += 5;
+				rect(WIDTH-paddle2w, paddle2y, paddle2w, paddle2h);
+
+
+
+
+				if (x + dx < (0 + paddle1w)){
+					if (y > paddle1y && y < paddle1y + paddle1h){
+						dx = -dx;
+					}
+						
+					else if (x + dx < 0) {
+						//Perdio jugador 1
+						dx = -dx;
+						//clearIntervalId(intervalId);
+					}
+				}
+				else if (x + dx > (WIDTH - paddle2w)) {
+					if (y > paddle2y && y < paddle2y + paddle2h)
+						dx = -dx;
+					else if (x + dx > WIDTH) {
+						//Perdio jugador 2
+						dx = -dx;
+						//clearIntervalId(intervalId);
+
+					}
+				}
+
+			  	if (y + dy > HEIGHT || y + dy < 0)
+			    	dy = -dy;
+
+				x+=dx;
+				y+=dy;
+			}
+
+			function onKeyDown(evt) {
+			  if (evt.keyCode == 87) upDown1 = true;
+			  else if (evt.keyCode == 83) downDown1 = true;
+			  else if (evt.keyCode == 80) upDown2 = true;
+			  else if (evt.keyCode == 76) downDown2 = true;
+
+			}
+
+			//and unset them when the up or left key is released
+			function onKeyUp(evt) {
+			  if (evt.keyCode == 87) upDown1 = false;
+			  else if (evt.keyCode == 83) downDown1 = false;
+			  if (evt.keyCode == 80) upDown2 = false;
+			  else if (evt.keyCode == 76) downDown2 = false;
+			}
+
+			$(document).keydown(onKeyDown);
+			$(document).keyup(onKeyUp);
+
+			init();
+			init_paddles();
+		});
+
+		</script>
+	</head>
+	<body>
+	<canvas id="cancha" width="900" height="600"></canvas>
+	</body>
+</html>

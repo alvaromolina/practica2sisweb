@@ -1,0 +1,24 @@
+<html>
+	<head>
+		
+	</head>
+	<body>
+		<button>Boton 1</button><br>
+		<button>Boton 2</button><br>
+		<button>Boton 3</button><br>
+		<button>Boton 4</button><br>
+		<script>
+
+			function button_alert(i) {
+			     return function() {
+			     	alert('boton: #' + i);
+			     }
+			}
+
+			var nodes = document.getElementsByTagName('button');
+			for (var i = 0; i < nodes.length; i++) {
+			   nodes[i].addEventListener('click', button_alert(i));
+			}
+		</script>
+	</body>
+</html>

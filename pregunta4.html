@@ -1,0 +1,19 @@
+<html>
+	<head>
+
+	</head>
+	<body>
+		<button>Boton 1</button><br>
+		<button>Boton 2</button><br>
+		<button>Boton 3</button><br>
+		<button>Boton 4</button><br>
+		<script>
+			var nodes = document.getElementsByTagName('button');
+			for (var i = 0; i < nodes.length; i++) {
+			   nodes[i].addEventListener('click', function() {
+			      alert('boton: #' + i);
+			   });
+			}
+		</script>
+	</body>
+</html>

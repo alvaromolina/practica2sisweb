@@ -2,6 +2,20 @@
 	<head>
 		<script>
 
+		function mostrar_bisiestos(){
+			document.getElementById('result').innerHTML = ""
+			year1 = parseInt(document.getElementById('year1').value)
+			year2 = parseInt(document.getElementById('year2').value)
+
+			for(year=year1;year<=year2;year++){
+				if(es_bisiesto(year))
+					document.getElementById('result').innerHTML += " " + year
+			}
+		}
+		function es_bisiesto(year){
+			return ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) ? true : false;
+		}
+
 		</script>
 	</head>
 	<body>

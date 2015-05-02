@@ -1,20 +1,105 @@
 <html>
 	<head>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
 		<script>
-		
+		$(document).ready(function () {
+
+		    function error(input,id,message){
+		      $(input).css("border","2px solid red");
+		      $(id).css("color","red");
+		      $(id).html(message);
+		    }
+		    function help(id,message){
+		      $(id).css("color","gray");
+		      $(id).html(message);
+		      $(id).show();
+		    }
+		    function ok(input,id){
+		      $(input).css("border","2px solid lightgreen");
+		      $(id).hide();
+		    }
+		    function initial(input){
+		      $(input).css("border","2px none");
+		    }
+
+		    $('span').hide();
+
+		    $('#usuario').on({
+		        focus: function(){
+		            help('#namemes'," Debe tener un minimo de 6 caracteres"); /* Ayuda en Foco */
+		        },
+
+		        blur: function(){
+		           var input=$(this);
+		           var is_name=input.val();
+		           if(is_name)
+		           {
+		             if(is_name.length > 5)
+		             { 
+		             ok('#usuario','#namemes'); } /*Cumple todos los requerimientos */
+		             else { error('#usuario','#namemes'," No cumple la longitud minima"); }
+		           }
+		           else { error('#usuario','#namemes'," Este campo es obligatorio"); }
+		        }
+		    });
+
+		    $('#password').on({
+		        focus: function(){
+		            help('#passmes'," Debe tener una longitud minima de 8 caracteres y contener 1 numero"); /* Ayuda en Foco */
+		        },
+		        blur: function(){
+		           var input=$(this);
+		           var re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])$/;
+		           var is_pass=input.val();
+		           if(is_pass)/*no es nulo*/
+		           {
+		              if(is_pass.length > 7)/*longitud minima*/
+		              { 
+		                if(is_pass.search(/\d/) != -1)/*si contiene numeros por lo menos 1 */
+		                { ok('#password','#passmes'); } /*Cumple con todos los requerimientos */
+		                else
+		                { error('#password','#passmes', " No contiene un numero como minimo"); }
+		              }
+		              else { error('#password','#passmes'," No cumple la longitud minima"); }
+		           }
+		           else { error('#password','#passmes'," Este campo es obligatorio"); }
+		        }
+		    });
+		   
+		    $('#ciudad').on({ 
+		        focus: function(){
+		            help('#ciudadmes'," Debe elejir la ciudad"); /* Ayuda en Foco */
+		        },  
+		        blur: function(){ 
+		            var txt = $('#ciudad').find(":selected").text();
+		            if(txt != "Elija")
+		            { 
+		            	ok('#ciudad','#ciudadmes');
+		            }
+		            else
+		            { 
+		              error('#ciudad','#ciudadmes'," Este campo es obligatorio");
+		            }
+		        }
+		    });
+
+		 });
+
 		</script>
 	</head>
 	<body>
 		<h1>Nuevo usuario</h1>
 		<form action="">
-			Usuario: <input type="text" name="usuario" id="usuario"><br>
-			Password: <input type="password" name="password" id="password"> <br>	
+			Usuario: <input type="text" name="usuario" id="usuario"><span id ="namemes"></span><br>
+			Password: <input type="password" name="password" id="password"><span id="passmes"></span><br>
 			Ciudad: <select name="ciudad" id="ciudad">
 				<option value="">Elija</option>
 				<option value="Cochabamba">Cochabamba</option>
 				<option value="La Paz">La Paz</option>
 				<option value="Santa Cruz">Santa Cruz</option>
 			</select>
+			<span id="ciudadmes"></span><br>
 		</form>
 	</body>
 </html>

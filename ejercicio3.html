@@ -2,6 +2,21 @@
 	<head>
 		<script>
 
+			var filas = 2;
+
+
+			function insertar_fila(){
+				filas++;
+				tabla = document.getElementById('tabla');
+				td1 = document.createElement("td");
+				td1.innerHTML = "Fila"+ filas + " celda 1" ;
+				td2 = document.createElement("td");
+				td2.innerHTML = "Fila"+ filas + " celda 2" ;
+				tr = document.createElement("tr");
+				tr.appendChild(td1);
+				tr.appendChild(td2);
+				tabla.appendChild(tr);
+			}
 		</script>
 	</head>
 	<body>
